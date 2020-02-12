@@ -63,8 +63,8 @@ def distinguishable_carton(carton):
 
 
 if __name__ == "__main__":
-    rows = 3
-    columns = 3
+    rows = 2
+    columns = 6
     cartons = product(product([0, 1], repeat=columns), repeat=rows)
     grouped_cartons = equivalence_classes(cartons, distinguishable_carton)
 
