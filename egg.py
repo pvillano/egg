@@ -62,23 +62,31 @@ def distinguishable_carton(carton):
     return mass(carton), central_moment(carton), inertia_tensor(carton)
 
 
+def print_equivalence_classes(classes_dict):
+    for key, carton_list in classes_dict.items():
+        if len(carton_list) > 1:
+            print(key)
+            for carton in carton_list:
+                for row in carton:
+                    print(row)
+                print()
+
 if __name__ == "__main__":
     rows = 2
     columns = 6
     cartons = product(product([0, 1], repeat=columns), repeat=rows)
     grouped_cartons = equivalence_classes(cartons, distinguishable_carton)
 
-    print("number of equivalence classes", len(grouped_cartons))
     sings = {k: v for (k, v) in grouped_cartons.items() if len(v) == 1}
     dupes = {k: v for (k, v) in grouped_cartons.items() if len(v) == 2}
     trips = {k: v for (k, v) in grouped_cartons.items() if len(v) == 3}
 
-    print(len(sings))
-    print(len(dupes))
-    print(len(trips))
-    for key, value in dupes.items():
-        print(key)
-        for carton in value:
-            for row in carton:
-                print(row)
-            print()
+    print_equivalence_classes(sings)
+    print_equivalence_classes(dupes)
+    print_equivalence_classes(trips)
+
+    print("number of equivalence classes", len(grouped_cartons))
+    print("unique arrangements", len(sings))
+    print("paired arrangements", len(dupes))
+    print("triplet arrangements", len(trips))
+
